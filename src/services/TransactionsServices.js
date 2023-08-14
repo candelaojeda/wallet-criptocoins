@@ -9,4 +9,7 @@ export default {
   getTransactions(idUser) {
     return clienteAPI.get(`/transactions?q={"user_id": "${idUser}"}`);
   },
+  enterNewTransaction(newTransaction) {
+    return clienteAPI.post("/transactions", newTransaction);
+  },
 };
