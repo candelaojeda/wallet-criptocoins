@@ -45,7 +45,7 @@ export default {
   display: flex;
   border: solid 4px #adb942;
   padding: 30px 30px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.9);
   margin: 10px auto;
   margin-top: 20px;
 }
