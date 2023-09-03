@@ -100,7 +100,12 @@ export default {
             this.$store.commit("pushTransactions");
           })
           .catch((err) => {
-            this.$toast.error("Error:" + err.message);
+            console.error("Error:", err);
+            if (err && err.message) {
+              this.$toast.error("Error: " + err.message);
+            } else {
+              this.$toast.error("An unknown error occurred.");
+            }
           });
       }
     },
