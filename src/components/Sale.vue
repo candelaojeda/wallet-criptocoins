@@ -66,7 +66,7 @@ export default {
     return {
       newTransaction: {
         user_id: this.$store.state.idUser,
-        action: "purchase",
+        action: "sale",
         crypto_code: "",
         crypto_amount: "",
         money: "",
