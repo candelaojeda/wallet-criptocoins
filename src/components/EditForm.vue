@@ -161,8 +161,6 @@ export default {
   align-items: center;
   height: 90vh;
 }
-.contentEdit {
-}
 h2 {
   font-size: 20px;
   text-transform: uppercase;

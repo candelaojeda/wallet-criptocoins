@@ -192,7 +192,7 @@ export default {
 .input {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  margin-top: 15px;
 }
 input {
   border-style: none;
@@ -209,7 +209,7 @@ input:focus {
   box-shadow: 0 0 2px #adb942;
 }
 .btn {
-  width: 365px;
+  width: 385px;
   height: 42px;
   font-size: 18px;
   font-weight: 600;
