@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "../views/LoginView.vue";
 import ActionsView from "../views/ActionsView.vue";
 import ActualStateView from "../views/ActualStateView.vue";
-import History from "../views/History.vue";
+import HistoryView from "../views/HistoryView.vue";
 import EditForm from "../components/EditForm";
 
 const routes = [
@@ -24,7 +24,7 @@ const routes = [
   {
     path: "/history",
     name: "History",
-    component: History,
+    component: HistoryView,
   },
   {
     path: "/edit",
