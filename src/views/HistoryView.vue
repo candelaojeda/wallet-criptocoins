@@ -21,10 +21,10 @@
           >
             <td>{{ transaction.crypto_code }}</td>
             <td>{{ transaction.crypto_amount }}</td>
-            <td>$ {{ transaction.money }}</td>
+            <td>$ {{ calculateMoney(transaction) }}</td>
             <td>{{ transaction.action }}</td>
-            <td>{{ time(transaction.datetime) }}</td>
-            <td>{{ hours(transaction.datetime) }}</td>
+            <td>{{ time(transaction.datetime).date }}</td>
+            <td>{{ time(transaction.datetime).time }}</td>
             <td class="iconsContainer">
               <div class="icon">
                 <router-link :to="{ name: 'EditForm', query: { id: selectableRow } }">
@@ -75,14 +75,27 @@ export default {
     }),
   },
   methods: {
+    calculateMoney(coin) {
+      const money = parseFloat(coin.crypto_amount) * parseFloat(coin.money);
+      return money.toFixed(2);
+    },
     enter() {
       this.$router.push("/actions");
     },
     time(datetime) {
-      return datetime.slice(0, 10);
-    },
-    hours(datetime) {
-      return datetime.slice(11, 16) + " hs";
+      const date = new Date(datetime).toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      const time = new Date(datetime).toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      return { date, time };
     },
     deleteRow(id) {
       if (confirm("Do you want to delete the selected row?")) {
@@ -175,5 +188,6 @@ td {
 .icon {
   margin-right: 5px;
   margin-left: 5px;
+  cursor: pointer;
 }
 </style>
