@@ -4,6 +4,7 @@ import ActionsView from "../views/ActionsView.vue";
 import ActualStateView from "../views/ActualStateView.vue";
 import HistoryView from "../views/HistoryView.vue";
 import EditForm from "../components/EditForm";
+import InvestmentsView from "../views/InvestmentsView.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/edit",
     name: "EditForm",
     component: EditForm,
+  },
+  {
+    path: "/investments",
+    name: "Investments",
+    component: InvestmentsView,
   },
 ];
 
