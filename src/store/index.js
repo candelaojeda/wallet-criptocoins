@@ -18,19 +18,19 @@ export default createStore({
         if (index == -1) {
           if (transaction.action == "sale") {
             const negativeTransaction = transaction;
-            negativeTransaction.crypto_amount = -negativeTransaction.crypto_amount;
-            negativeTransaction.money = -negativeTransaction.money;
+            negativeTransaction.crypto_amount = -parseFloat(negativeTransaction.crypto_amount);
+            negativeTransaction.money = -parseFloat(negativeTransaction.money);
             wallet.push(negativeTransaction);
           } else {
             wallet.push(transaction);
           }
         } else {
           if (transaction.action == "purchase") {
-            wallet[index].crypto_amount += transaction.crypto_amount;
-            wallet[index].money += transaction.money;
+            wallet[index].crypto_amount += parseFloat(transaction.crypto_amount);
+            wallet[index].money += parseFloat(transaction.money);
           } else {
-            wallet[index].crypto_amount -= transaction.crypto_amount;
-            wallet[index].money -= transaction.money;
+            wallet[index].crypto_amount -= parseFloat(transaction.crypto_amount);
+            wallet[index].money -= parseFloat(transaction.money);
           }
         }
       });
