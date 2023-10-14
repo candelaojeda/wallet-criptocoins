@@ -11,7 +11,7 @@
       </div>
     </div>
     <button v-on:click="history()" type="submit" class="btnHistory">
-      <b>History</b>
+      <b>Check history</b>
     </button>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default {
   border-radius: 5px;
 }
 .btnHistory {
-  width: 15%;
+  width: 200px;
   height: 48px;
   background: #adb942;
   font-size: 20px;
