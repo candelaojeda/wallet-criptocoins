@@ -1,8 +1,9 @@
 <template>
   <div class="body">
-    <div id="nav">
+    <div id="nav" v-if="$store.state.idUser">
       <router-link to="/actions">Purchase-Sale</router-link> |
-      <router-link to="/actual-state">Actual State</router-link>
+      <router-link to="/actual-state">Actual State</router-link> |
+      <router-link to="/investments">Investments</router-link>
     </div>
     <div class="user">
       <div class="nickName">
@@ -23,6 +24,7 @@ export default {
   create() {},
   methods: {
     exit: function () {
+      this.$store.commit("modifyIdUser", null);
       this.$router.push("/");
     },
   },
