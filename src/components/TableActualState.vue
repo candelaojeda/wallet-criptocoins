@@ -15,11 +15,11 @@
           <td class="tableData">${{ calculateMoney(coin) }}</td>
         </tr>
         <tr>
-          <td class="tableTitle">
+          <td class="tableTitleTotal">
             <p>TOTAL</p>
           </td>
           <td class="tableData"><p></p></td>
-          <td class="tableData">
+          <td class="tableDataTotal">
             <p>${{ calculateTotal() }}</p>
           </td>
         </tr>
@@ -106,6 +106,7 @@ export default {
   overflow: hidden;
   padding: 10px 13px;
   word-break: normal;
+  width: 3200px;
 }
 .table .tableTitle {
   border-color: #adb942;
@@ -113,6 +114,14 @@ export default {
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
+}
+.table .tableTitleTotal {
+  border-color: #adb942;
+  color: azure;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 22px;
 }
 .table .tableData {
   border-color: #adb942;
@@ -122,6 +131,13 @@ export default {
 }
 .tableData {
   font-weight: bold;
+}
+.table .tableDataTotal {
+  border-color: #adb942;
+  color: azure;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 30px;
 }
 .btn:hover,
 .btnHistory:hover {
