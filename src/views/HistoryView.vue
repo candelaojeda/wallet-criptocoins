@@ -1,5 +1,9 @@
 <template>
   <div class="body">
+    <h1>History information</h1>
+    <div class="description">
+      <p>On this screen you can see all the movements of your cryptocurrencies.</p>
+    </div>
     <div class="container">
       <table v-show="table">
         <thead>
@@ -124,7 +128,7 @@ export default {
   margin-top: 80px;
 }
 .container {
-  width: 850px;
+  width: 1000px;
   box-shadow: 0 3px 25px hsla(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -142,22 +146,20 @@ th {
 td {
   color: #a0a0a0;
 }
-.editTransaction {
-}
 .btn:hover,
 .btnBack:hover {
   background: azure;
-  color: #adb942;
+  color: #000000;
   border-radius: 5px;
 }
 .btnBack {
-  width: 10%;
+  width: 15%;
   height: 48px;
   background: #adb942;
   font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 5px;
-  color: azure;
+  color: #000000;
   letter-spacing: 1px;
   border-radius: 5px;
   cursor: pointer;
@@ -189,5 +191,25 @@ td {
   margin-right: 5px;
   margin-left: 5px;
   cursor: pointer;
+}
+.editTransaction {
+  cursor: pointer;
+}
+h1 {
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: azure;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.description {
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 1.3em;
+  margin: 30px 0 40px;
+  color: #9e9a68;
+  text-align: center;
+  align-content: center;
 }
 </style>
