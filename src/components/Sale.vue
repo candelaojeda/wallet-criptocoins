@@ -209,7 +209,7 @@ input:focus {
   box-shadow: 0 0 2px #adb942;
 }
 .btn {
-  width: 385px;
+  width: 150px;
   height: 42px;
   font-size: 18px;
   font-weight: 600;
@@ -218,15 +218,15 @@ input:focus {
   letter-spacing: 1px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px auto;
-  border-style: none;
-  background: azure;
-  color: #adb942;
+  margin: 20px auto;
+  border-color: #adb942;
+  background: none;
+  color: azure;
   transition: background 0.3s ease-in-out;
 }
 .btn:hover {
   background: #adb942;
-  color: azure;
+  color: #000000;
   border-radius: 5px;
 }
 </style>
