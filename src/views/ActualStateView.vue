@@ -2,7 +2,14 @@
   <div>
     <div class="information">
       <div class="details">
-        <h1>Información</h1>
+        <h1>Actual state information</h1>
+        <div class="description">
+          <p>
+            This is the current state of your finances. In this table you can see the
+            cryptocurrencies you have, their amount and how much money it represents. You can also
+            see the total amount of money you have.
+          </p>
+        </div>
         <TableActualState />
       </div>
     </div>
@@ -35,5 +42,14 @@ export default {
   letter-spacing: 5px;
   color: azure;
   margin-bottom: 40px;
+}
+.description {
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 1.3em;
+  margin: 10px 0 40px;
+  color: #9e9a68;
+  max-width: 1000px;
+  text-align: center;
 }
 </style>
