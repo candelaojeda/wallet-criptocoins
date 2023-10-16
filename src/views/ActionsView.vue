@@ -1,5 +1,8 @@
 <template>
   <div class="containerActions">
+    <div class="description">
+      <p>On this screen you can register a new purchase or a new sale of cryptocurrencies.</p>
+    </div>
     <div class="purchase-sale">
       <div class="purchase">
         <h1>Purchase</h1>
@@ -35,10 +38,12 @@ export default {
 <style scoped>
 .containerActions {
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
 }
 .purchase-sale {
   z-index: 1;
-  width: 850px;
+  width: 1000px;
   border-radius: 10px;
   box-shadow: 0 3px 25px hsla(0, 0, 0, 0.2);
   overflow: hidden;
@@ -49,15 +54,19 @@ export default {
   margin: 10px auto;
   margin-top: 20px;
 }
-.purchase,
+.purchase {
+  width: 100%;
+  padding: 10px 20px 10px 10px;
+  align-items: center;
+}
 .sale {
   width: 100%;
-  padding: 10px 10px;
+  padding: 10px 10px 10px 30px;
   align-items: center;
 }
 .purchase h1,
 .sale h1 {
-  font-size: 15px;
+  font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 5px;
   color: #999;
@@ -86,5 +95,14 @@ export default {
   margin: 10px auto;
   border-style: none;
   transition: background 0.3s ease-in-out;
+}
+.description {
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 1.3em;
+  margin: 30px 0 40px;
+  color: #9e9a68;
+  text-align: center;
+  align-content: center;
 }
 </style>
