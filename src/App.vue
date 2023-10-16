@@ -1,9 +1,9 @@
 <template>
   <div class="body">
     <div id="nav" v-if="$store.state.idUser">
-      <router-link to="/actions">Purchase-Sale</router-link> |
-      <router-link to="/actual-state">Actual State</router-link> |
-      <router-link to="/investments">Investments</router-link>
+      <router-link to="/actions">PURCHASE-SALE</router-link> |
+      <router-link to="/actual-state">ACTUAL STATE</router-link> |
+      <router-link to="/investments">INVESTMENTS</router-link>
     </div>
     <div class="user">
       <div class="nickName">
@@ -69,10 +69,10 @@ export default {
 .btnExit {
   width: 100px;
   height: 30px;
-  background: none;
+  background: #adb942;
+  color: #000000;
   font-size: 12px;
   text-transform: uppercase;
-  color: azure;
   letter-spacing: 1px;
   border-radius: 4px;
   border: 1px solid #adb942;
@@ -82,8 +82,8 @@ export default {
   transition: background 0.3s ease-in-out;
 }
 .btnExit:hover {
-  background: #adb942;
-  color: #000000;
+  background: none;
+  color: azure;
 }
 .user p {
   font-size: 14px;
