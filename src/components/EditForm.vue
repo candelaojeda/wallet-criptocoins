@@ -1,6 +1,6 @@
 <template>
   <div class="edit">
-    <form action="#" method="post">
+    <form action="#" method="post" class="form-style">
       <h2>EDIT TRANSACTION</h2>
       <div class="contentEdit">
         <div class="content-select">
@@ -62,7 +62,7 @@
         </div>
         <div class="btnsEdit">
           <button class="btnEdit" type="submit" @click.prevent="editCripto">EDIT</button>
-          <button class="btn" type="submit" @click.prevent="cancel">CANCELAR</button>
+          <button class="btn" type="submit" @click.prevent="cancel">CANCEL</button>
         </div>
       </div>
     </form>
@@ -159,7 +159,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 70vh;
+}
+.form-style {
+  border-radius: 10px;
+  box-shadow: 0 3px 25px hsla(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  background: rgba(0, 0, 0, 0.9);
 }
 h2 {
   font-size: 20px;
@@ -183,10 +192,10 @@ h2 {
   background: rgba(0, 0, 0, 0.9);
 }
 .content-select {
-  max-width: 100%;
   position: relative;
   margin: 1px auto;
   margin-bottom: 5px;
+  width: 600px;
 }
 .content-select select {
   display: inline-block;
@@ -242,10 +251,10 @@ input:focus {
 }
 .btnsEdit {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .btnEdit {
-  width: 80px;
+  width: 200px;
   height: 42px;
   font-size: 18px;
   font-weight: 600;
@@ -261,7 +270,7 @@ input:focus {
   transition: background 0.3s ease-in-out;
 }
 .btn {
-  width: 130px;
+  width: 200px;
   height: 42px;
   font-size: 18px;
   font-weight: 600;
