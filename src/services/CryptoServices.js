@@ -9,4 +9,7 @@ export default {
   getAgenciesInformation(coin) {
     return clientApi.get(`/${coin}/ars/1`);
   },
+  getPriceCoin(coin) {
+    return clientApi.get(`/letsbit/${coin}`);
+  },
 };
