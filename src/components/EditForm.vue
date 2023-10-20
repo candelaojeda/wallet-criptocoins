@@ -118,6 +118,7 @@ export default {
           .then(() => {
             this.$toast.info("Successfully edition!");
             this.$router.push("/history");
+            this.$store.commit("updateTransaction", this.newTransaction);
           })
           .catch(() => {
             this.$toast.error("Error when making the operation.");
