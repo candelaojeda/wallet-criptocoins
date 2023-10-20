@@ -59,6 +59,7 @@
 <script>
 import TransactionsServices from "./../services/TransactionsServices.js";
 import CryptoServices from "./../services/CryptoServices";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Sale",
@@ -78,6 +79,11 @@ export default {
       setAmountDisabled: true,
     };
   },
+  computed: {
+    ...mapGetters({
+      wallet: "getCurrentStatus",
+    }),
+  },
   methods: {
     saleCripto() {
       if (this.newTransaction.crypto_amount === "") {
@@ -93,16 +99,27 @@ export default {
       } else if (parseFloat(this.newTransaction.money) <= 0) {
         this.$toast.error("The amount to enter must be greater than 0.");
       } else {
-        this.newTransaction.datetime = new Date();
-        TransactionsServices.enterNewTransaction(this.newTransaction)
-          .then(() => {
-            this.$toast.info("Successfully!");
-            this.$store.commit("pushTransactions");
-          })
-          .catch((err) => {
-            this.$toast.error("Error:" + err.message);
-          });
+        const cryptoCodeToSell = this.newTransaction.crypto_code;
+        const cryptoAmountInWallet = this.getCryptoAmountInWallet(cryptoCodeToSell);
+
+        if (parseFloat(this.newTransaction.crypto_amount) <= cryptoAmountInWallet) {
+          this.newTransaction.datetime = new Date();
+          TransactionsServices.enterNewTransaction(this.newTransaction)
+            .then(() => {
+              this.$toast.info("Successfully!");
+              this.$store.commit("pushTransactions");
+            })
+            .catch((err) => {
+              this.$toast.error("Error:" + err.message);
+            });
+        } else {
+          this.$toast.error("You can't sell that currency because you don't have it available.");
+        }
       }
+    },
+    getCryptoAmountInWallet(cryptoCode) {
+      const walletEntry = this.wallet.find((entry) => entry.crypto_code === cryptoCode);
+      return walletEntry ? parseFloat(walletEntry.crypto_amount) : 0;
     },
     getAgencies(cripto) {
       CryptoServices.getAgenciesInformation(cripto)
