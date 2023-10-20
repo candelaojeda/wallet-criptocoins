@@ -9,10 +9,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(coin, index) in wallet" :key="index">
-          <td class="tableData">{{ coin.crypto_code }}</td>
-          <td class="tableData">{{ coin.crypto_amount }}</td>
-          <td class="tableData">${{ calculateMoney(coin) }}</td>
+        <tr v-for="data in tableData" :key="data._id">
+          <td class="tableData">{{ data.crypto_code }}</td>
+          <td class="tableData">{{ data.crypto_amount }}</td>
+          <td class="tableData">{{ data.money }}</td>
         </tr>
         <tr>
           <td class="tableTitleTotal">
@@ -32,9 +32,16 @@
 </template>
 
 <script>
+import CryptoServices from "@/services/CryptoServices";
 import { mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      totalMoney: 0,
+      tableData: [],
+    };
+  },
   computed: {
     ...mapGetters({
       wallet: "getCurrentStatus",
@@ -44,38 +51,51 @@ export default {
     history: function () {
       this.$router.push("/history");
     },
-    calculateMoney(coin) {
-      const cryptoAmount = parseFloat(coin.crypto_amount);
-      const money = parseFloat(coin.money);
-      return (cryptoAmount * money).toFixed(2);
-    },
     calculateTotal() {
-      let cryptoTotals = {};
-
-      for (const coin of this.wallet) {
-        const cryptoCode = coin.crypto_code;
-        const cryptoAmount = parseFloat(coin.crypto_amount);
-        const money = parseFloat(coin.money);
-
-        if (cryptoCode in cryptoTotals) {
-          cryptoTotals[cryptoCode].quantity += cryptoAmount;
-          cryptoTotals[cryptoCode].totalMoney += money;
-        } else {
-          cryptoTotals[cryptoCode] = {
-            quantity: cryptoAmount,
-            totalMoney: money,
-          };
-        }
-      }
-
-      let total = 0;
-
-      for (const cryptoCode in cryptoTotals) {
-        total += cryptoTotals[cryptoCode].totalMoney;
-      }
-
-      return total.toFixed(2);
+      return this.tableData
+        .reduce((total, data) => {
+          return total + data.money;
+        }, 0)
+        .toFixed(2);
     },
+  },
+  mounted() {
+    const cryptoData = {};
+
+    this.wallet.forEach((coin) => {
+      if (!cryptoData[coin.crypto_code]) {
+        cryptoData[coin.crypto_code] = {
+          crypto_amount: 0,
+          money: 0,
+          actualPrice: 0,
+        };
+      }
+
+      const actionMultiplier = coin.action === "purchase" ? 1 : -1;
+      cryptoData[coin.crypto_code].crypto_amount +=
+        actionMultiplier * parseFloat(coin.crypto_amount);
+      cryptoData[coin.crypto_code].money += actionMultiplier * parseFloat(coin.money);
+    });
+
+    Object.keys(cryptoData).forEach((cryptoCode) => {
+      const data = cryptoData[cryptoCode];
+      if (data.crypto_amount > 0) {
+        CryptoServices.getPriceCoin(cryptoCode)
+          .then((rta) => {
+            const cryptoEntry = {
+              crypto_code: cryptoCode,
+              crypto_amount: data.crypto_amount,
+              money: data.money,
+              actualPrice: rta.data.totalBid,
+            };
+            this.tableData.push(cryptoEntry);
+            this.totalMoney += parseFloat(data.crypto_amount * cryptoEntry.actualPrice);
+          })
+          .catch(() => {
+            this.$toast.error("Error al cargar los Datos");
+          });
+      }
+    });
   },
 };
 </script>
