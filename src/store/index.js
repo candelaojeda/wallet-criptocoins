@@ -53,6 +53,14 @@ export default createStore({
     modifyTotalMoneyActualState(state, totalMoney) {
       state.totalMoney = totalMoney;
     },
+    updateTransaction(state, updatedTransaction) {
+      const index = state.transactions.findIndex(
+        (transaction) => transaction._id === updatedTransaction._id
+      );
+      if (index !== -1) {
+        state.transactions[index] = updatedTransaction;
+      }
+    },
   },
   actions: {},
   modules: {},
