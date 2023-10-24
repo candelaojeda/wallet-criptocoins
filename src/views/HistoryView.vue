@@ -25,7 +25,7 @@
           >
             <td>{{ transaction.crypto_code }}</td>
             <td>{{ transaction.crypto_amount }}</td>
-            <td>$ {{ calculateMoney(transaction) }}</td>
+            <td>$ {{ transaction.money }}</td>
             <td>{{ transaction.action }}</td>
             <td>{{ time(transaction.datetime).date }}</td>
             <td>{{ time(transaction.datetime).time }}</td>
@@ -79,10 +79,6 @@ export default {
     }),
   },
   methods: {
-    calculateMoney(coin) {
-      const money = parseFloat(coin.crypto_amount) * parseFloat(coin.money);
-      return money.toFixed(2);
-    },
     enter() {
       this.$router.push("/actions");
     },
