@@ -2,7 +2,7 @@
   <div class="body">
     <div id="nav" v-if="$store.state.idUser">
       <router-link to="/actions">PURCHASE-SALE</router-link> |
-      <router-link to="/actual-state">ACTUAL STATE</router-link> |
+      <router-link to="/current-state">CURRENT STATE</router-link> |
       <router-link to="/investments">INVESTMENTS</router-link>
     </div>
     <div class="user">
@@ -25,7 +25,7 @@ export default {
   methods: {
     exit: function () {
       this.$store.commit("modifyIdUser", null);
-      this.$router.push("/");
+      this.$router.push({ name: "Login" });
     },
   },
 };
