@@ -13,16 +13,19 @@ export default createStore({
     },
     getCurrentStatus: (state) => {
       const wallet = [];
+
       state.transactions.forEach((transaction) => {
         const index = wallet.findIndex((element) => element.crypto_code == transaction.crypto_code);
         if (index == -1) {
           if (transaction.action == "sale") {
-            const negativeTransaction = transaction;
+            const negativeTransaction = { ...transaction };
             negativeTransaction.crypto_amount = -parseFloat(negativeTransaction.crypto_amount);
             negativeTransaction.money = -parseFloat(negativeTransaction.money);
-            wallet.push(negativeTransaction);
+            const { crypto_amount, crypto_code, money } = negativeTransaction;
+            wallet.push({ crypto_amount, crypto_code, money });
           } else {
-            wallet.push(transaction);
+            const { crypto_amount, crypto_code, money } = transaction;
+            wallet.push({ crypto_amount, crypto_code, money });
           }
         } else {
           if (transaction.action == "purchase") {
@@ -34,6 +37,7 @@ export default createStore({
           }
         }
       });
+
       return wallet;
     },
   },
