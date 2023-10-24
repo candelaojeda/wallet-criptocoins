@@ -61,7 +61,7 @@
           <i></i>
         </div>
         <div class="btnsEdit">
-          <button class="btnEdit" type="submit" @click.prevent="editCripto">EDIT</button>
+          <button class="btnEdit" type="submit" @click.prevent="editCripto">SAVE</button>
           <button class="btn" type="submit" @click.prevent="cancel">CANCEL</button>
         </div>
       </div>
