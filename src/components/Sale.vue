@@ -25,7 +25,7 @@
         >
           <option value="" disabled selected hidden>SELECT AGENCY</option>
           <option v-for="agency in agencies" :key="agency.agency" :value="agency">
-            {{ agency.agency.toUpperCase() + " - Sale price: " + agency.values.totalAsk }}
+            {{ agency.agency.toUpperCase() + " - Sale price: " + agency.values.totalBid }}
           </option>
         </select>
         <i></i>
@@ -108,6 +108,9 @@ export default {
             .then(() => {
               this.$toast.info("Successfully!");
               this.$store.commit("pushTransactions");
+              this.newTransaction.crypto_code = "";
+              this.newTransaction.crypto_amount = "";
+              this.newTransaction.money = "";
             })
             .catch((err) => {
               this.$toast.error("Error:" + err.message);
@@ -135,9 +138,14 @@ export default {
       this.setAmountDisabled = false;
     },
     calculateAmount() {
-      this.newTransaction.money = (
-        this.newTransaction.crypto_amount * this.selectedAgency.values.totalAsk
-      ).toFixed(2);
+      const enteredValue = parseFloat(this.newTransaction.crypto_amount);
+
+      if (isNaN(enteredValue) || enteredValue <= 0) {
+        this.newTransaction.money = "";
+        this.$toast.error("The quantity must be greater than 0.");
+      } else {
+        this.newTransaction.money = (enteredValue * this.selectedAgency.values.totalBid).toFixed(2);
+      }
     },
   },
 };
