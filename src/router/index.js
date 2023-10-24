@@ -18,7 +18,7 @@ const routes = [
     component: ActionsView,
   },
   {
-    path: "/actual-state",
+    path: "/current-state",
     name: "ActualState",
     component: ActualStateView,
   },
