@@ -98,6 +98,9 @@ export default {
           .then(() => {
             this.$toast.info("Successfully!");
             this.$store.commit("pushTransactions");
+            this.newTransaction.crypto_code = "";
+            this.newTransaction.crypto_amount = "";
+            this.newTransaction.money = "";
           })
           .catch((err) => {
             console.error("Error:", err);
@@ -123,9 +126,14 @@ export default {
       this.setAmountDisabled = false;
     },
     calculateAmount() {
-      this.newTransaction.money = (
-        this.newTransaction.crypto_amount * this.selectedAgency.values.totalAsk
-      ).toFixed(2);
+      const enteredValue = parseFloat(this.newTransaction.crypto_amount);
+
+      if (isNaN(enteredValue) || enteredValue <= 0) {
+        this.newTransaction.money = "";
+        this.$toast.error("The quantity must be greater than 0.");
+      } else {
+        this.newTransaction.money = (enteredValue * this.selectedAgency.values.totalAsk).toFixed(2);
+      }
     },
   },
 };
