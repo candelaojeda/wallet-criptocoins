@@ -2,7 +2,7 @@
   <div>
     <div class="information">
       <div class="details">
-        <h1>Actual state information</h1>
+        <h1>Current state information</h1>
         <div class="description">
           <p>
             This is the current state of your finances. In this table you can see the
