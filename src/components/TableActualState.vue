@@ -1,18 +1,21 @@
 <template>
-  <div>
+  <div v-if="wallet && wallet.length > 0">
     <table class="table">
       <thead>
         <tr>
           <th class="tableTitle">CRIPTOCURRENCY</th>
           <th class="tableTitle">QUANTITY</th>
-          <th class="tableTitle">MONEY</th>
+          <th class="tableTitle">MONEY CRIPTO YA</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="data in tableData" :key="data._id">
-          <td class="tableData">{{ data.crypto_code }}</td>
-          <td class="tableData">{{ data.crypto_amount }}</td>
-          <td class="tableData">{{ data.money }}</td>
+        <tr
+          v-for="(coin, index) in wallet.filter((coin) => coin.crypto_amount > 0)"
+          :key="coin.crypto_code"
+        >
+          <td class="tableData">{{ coin.crypto_code }}</td>
+          <td class="tableData">{{ coin.crypto_amount }}</td>
+          <td class="tableData">{{ coinValues[index] }}</td>
         </tr>
         <tr>
           <td class="tableTitleTotal">
@@ -20,7 +23,7 @@
           </td>
           <td class="tableData"><p></p></td>
           <td class="tableDataTotal">
-            <p>${{ calculateTotal() }}</p>
+            <p>${{ currentTotalMoney.toFixed(2) }}</p>
           </td>
         </tr>
       </tbody>
@@ -28,6 +31,11 @@
     <button v-on:click="history()" type="submit" class="btnHistory">
       <b>Check history</b>
     </button>
+  </div>
+  <div v-else>
+    <p class="pharagraph">
+      You have no transactions made, the current status cannot yet be analyzed.
+    </p>
   </div>
 </template>
 
@@ -39,7 +47,8 @@ export default {
   data() {
     return {
       totalMoney: 0,
-      tableData: [],
+      currentTotalMoney: 0,
+      coinValues: [],
     };
   },
   computed: {
@@ -51,30 +60,18 @@ export default {
     history: function () {
       this.$router.push("/history");
     },
-    calculateTotal() {
-      return this.tableData
-        .reduce((total, data) => {
-          return total + data.money;
-        }, 0)
-        .toFixed(2);
-    },
   },
   mounted() {
     const cryptoData = {};
 
     this.wallet.forEach((coin) => {
-      if (!cryptoData[coin.crypto_code]) {
-        cryptoData[coin.crypto_code] = {
-          crypto_amount: 0,
-          money: 0,
-          actualPrice: 0,
-        };
-      }
+      cryptoData[coin.crypto_code] = {
+        crypto_amount: coin.crypto_amount,
+        money: parseFloat(coin.money),
+        actualPrice: 0,
+      };
 
-      const actionMultiplier = coin.action === "purchase" ? 1 : -1;
-      cryptoData[coin.crypto_code].crypto_amount +=
-        actionMultiplier * parseFloat(coin.crypto_amount);
-      cryptoData[coin.crypto_code].money += actionMultiplier * parseFloat(coin.money);
+      this.totalMoney += parseFloat(coin.money);
     });
 
     Object.keys(cryptoData).forEach((cryptoCode) => {
@@ -82,17 +79,13 @@ export default {
       if (data.crypto_amount > 0) {
         CryptoServices.getPriceCoin(cryptoCode)
           .then((rta) => {
-            const cryptoEntry = {
-              crypto_code: cryptoCode,
-              crypto_amount: data.crypto_amount,
-              money: data.money,
-              actualPrice: rta.data.totalBid,
-            };
-            this.tableData.push(cryptoEntry);
-            this.totalMoney += parseFloat(data.crypto_amount * cryptoEntry.actualPrice);
+            data.actualPrice = rta.data.totalBid;
+            const currentValue = data.crypto_amount * data.actualPrice;
+            this.coinValues.push(currentValue);
+            this.currentTotalMoney += currentValue;
           })
           .catch(() => {
-            this.$toast.error("Error al cargar los Datos");
+            this.$toast.error("Error.");
           });
       }
     });
@@ -130,7 +123,8 @@ export default {
 }
 .table .tableTitle {
   border-color: #adb942;
-  color: azure;
+  color: #adb942;
+  font-size: 23px;
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
@@ -179,5 +173,11 @@ export default {
   margin: 40px auto;
   border-style: none;
   transition: background 0.3s ease-in-out;
+}
+.pharagraph {
+  background: #adb942;
+  color: #000000;
+  border-radius: 4px;
+  padding: 5px;
 }
 </style>
