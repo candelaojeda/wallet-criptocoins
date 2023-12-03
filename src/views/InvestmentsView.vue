@@ -70,7 +70,9 @@ export default {
           .catch(() => {
             this.$toast.error("Error.");
           });
-      } else if ((data.crypto_amount = 0)) {
+      }
+
+      if ((data.crypto_amount = 0)) {
         return `${data.money * -1}`;
       }
     });
