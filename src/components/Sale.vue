@@ -111,6 +111,7 @@ export default {
               this.newTransaction.crypto_code = "";
               this.newTransaction.crypto_amount = "";
               this.newTransaction.money = "";
+              this.selectedAgency = "";
             })
             .catch((err) => {
               this.$toast.error("Error:" + err.message);

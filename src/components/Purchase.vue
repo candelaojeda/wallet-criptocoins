@@ -101,6 +101,7 @@ export default {
             this.newTransaction.crypto_code = "";
             this.newTransaction.crypto_amount = "";
             this.newTransaction.money = "";
+            this.selectedAgency = "";
           })
           .catch((err) => {
             console.error("Error:", err);
