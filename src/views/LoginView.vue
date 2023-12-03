@@ -46,7 +46,7 @@ export default {
         } else {
           this.$store.commit("modifyIdUser", this.idUser);
           this.$store.commit("pushTransactions");
-          this.$router.push("/actions");
+          this.$router.push("/dashboard");
         }
       }
     },
