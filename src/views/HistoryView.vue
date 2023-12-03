@@ -19,7 +19,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="transaction in transactions"
+            v-for="transaction in sortedTransactions"
             :key="transaction._id"
             :class="{ selected: selectableRow === transaction._id }"
           >
@@ -77,6 +77,11 @@ export default {
     ...mapGetters({
       transactions: "getTransactions",
     }),
+    sortedTransactions() {
+      return [...this.transactions].sort((a, b) => {
+        return new Date(b.datetime) - new Date(a.datetime);
+      });
+    },
   },
   methods: {
     enter() {
