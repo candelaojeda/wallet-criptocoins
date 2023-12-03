@@ -5,12 +5,18 @@ import ActualStateView from "../views/ActualStateView.vue";
 import HistoryView from "../views/HistoryView.vue";
 import EditForm from "../components/EditForm";
 import InvestmentsView from "../views/InvestmentsView.vue";
+import Dashboard from "../components/Dashboard.vue";
 
 const routes = [
   {
     path: "/",
     name: "Login",
     component: LoginView,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
   },
   {
     path: "/actions",
